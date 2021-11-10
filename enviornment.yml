@@ -1,0 +1,41 @@
+name: imitation
+channels:
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1=main
+  - _openmp_mutex=4.5=1_gnu
+  - ca-certificates=2021.10.26=h06a4308_2
+  - certifi=2020.6.20=pyhd3eb1b0_3
+  - libffi=3.3=he6710b0_2
+  - libgcc-ng=9.3.0=h5101ec6_17
+  - libgomp=9.3.0=h5101ec6_17
+  - libstdcxx-ng=9.3.0=hd4cf53a_17
+  - ncurses=6.3=heee7806_1
+  - pip=19.3.1=py27_0
+  - python=2.7.18=ha1903f6_2
+  - readline=8.1=h27cfd23_0
+  - setuptools=44.0.0=py27_0
+  - sqlite=3.36.0=hc218d9a_0
+  - tk=8.6.11=h1ccaba5_0
+  - wheel=0.37.0=pyhd3eb1b0_1
+  - zlib=1.2.11=h7b6447c_3
+  - pip:
+    - backports-functools-lru-cache==1.6.4
+    - cvxopt==1.2.7
+    - cycler==0.10.0
+    - funcsigs==1.0.2
+    - intel-openmp==2021.4.0
+    - kiwisolver==1.1.0
+    - matplotlib==2.2.5
+    - mkl==2021.4.0
+    - mock==3.0.5
+    - numpy==1.16.6
+    - protobuf==3.17.3
+    - pyparsing==2.4.7
+    - python-dateutil==2.8.2
+    - pytz==2021.3
+    - six==1.16.0
+    - subprocess32==3.5.4
+    - tbb==2021.4.0
+    - tensorflow==0.12.1
+prefix: /home/jonathanbopp/anaconda3/envs/imitation
