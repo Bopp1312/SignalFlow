@@ -7,3 +7,6 @@ a user input provided by the user. The user input device and the robot system ar
 can drop data coming from the user for certain periods of time.
 The actions are processed by the learning block by collecting the time series of states and calculating the state action
 pairs based on the deterministic transition probability of the signal.
+
+## Getting Started
+Start by running integrate.py 
