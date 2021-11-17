@@ -2,6 +2,7 @@ import scipy.io
 import numpy as np
 import matplotlib.pyplot as plt
 import math
+
 def getting_data():
     mat = scipy.io.loadmat('mixoutALL_shifted.mat')
     letters = mat.get('mixout')[0]
@@ -38,7 +39,11 @@ def getting_data():
         remapped_data.append(circ_data)
     d2 = dict(zip(idx,remapped_data))
     circ_dict = dict(zip(keys, list(d2.values())))
+    print(circ_dict)
     return circ_dict #dict with letters and their new representation
     #'a', 'b', 'c', 'd', 'e', 'g', 'h', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 'u', 'v', 'w', 'y', 'z'
 
+
+if __name__=='__main__':
     data_input = getting_data()
+
