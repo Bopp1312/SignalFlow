@@ -29,7 +29,7 @@ def getting_data():
     for i in range(len(data)):
         circ_data = []
         for ii in range(len(data[i][0])-1):
-            deltaX = data[i][0][ii+1] - data[i][0][ii]
+            deltaX = data[i][0][ii+1] - data[i][0][ii]+1
             deltaY = data[i][1][ii] - data[i][1][ii]
             angle = math.atan2(deltaY, deltaX) #from x,y to l, theta
             length = math.sqrt(deltaX**2+deltaY**2)
@@ -40,3 +40,5 @@ def getting_data():
     circ_dict = dict(zip(keys, list(d2.values())))
     return circ_dict #dict with letters and their new representation
     #'a', 'b', 'c', 'd', 'e', 'g', 'h', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 'u', 'v', 'w', 'y', 'z'
+
+    data_input = getting_data()
