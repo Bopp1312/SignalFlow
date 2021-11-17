@@ -2,6 +2,7 @@ import scipy.io
 import numpy as np
 import matplotlib.pyplot as plt
 import math
+from mdp.drawspace import DrawSpace
 
 def getting_data():
     mat = scipy.io.loadmat('mixoutALL_shifted.mat')
@@ -60,4 +61,8 @@ def getting_data():
 if __name__=='__main__':
     data_input = getting_data()
     print(data_input['a'])
+    letter_a = data_input['a']
+    drawSpace = DrawSpace()
+    demonstrations = drawSpace.data_to_demonstration(letter_a)
+
 

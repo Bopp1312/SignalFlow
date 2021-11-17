@@ -7,7 +7,7 @@ class DrawSpace(object):
     def __init__(self,
                  theta_bins=15,
                  length_bins=9,
-                 length_max=300,
+                 length_max=500,
                  theta_max=3 * np.pi,
                  delta_theta_bins=11,
                  delta_length_bins=3,
@@ -74,7 +74,8 @@ class DrawSpace(object):
         return actions
 
     # Get closest state index
-    def get_state_index_from_floats(self, (length, theta)):
+    def get_state_index_from_floats(self, state):
+        (length, theta) = state
         min_val = 100.0
         for i in range(self.n_states):
             dist_l = abs(length - self.states[i][0])
@@ -83,10 +84,23 @@ class DrawSpace(object):
             if dist < min_val:
                 min_val = dist
                 idx = i
-        return (idx)
+        return idx
 
-    def find_state(self,(length, theta)):
-        index = self.get_state_index_from_floats((length, theta))
+    # Get closest action index
+    def get_action_index_from_floats(self, action):
+        (d_length, d_theta) = action
+        min_val = 100.0
+        for i in range(self.n_actions):
+            dist_l = abs(d_length - self.actions[i][0])
+            dist_t = abs(d_theta - self.actions[i][1])
+            dist = dist_l + dist_t
+            if dist < min_val:
+                min_val = dist
+                idx = i
+        return idx
+
+    def find_state(self, state):
+        index = self.get_state_index_from_floats(state)
 
         return self.states[index]
 
@@ -98,11 +112,12 @@ class DrawSpace(object):
 
         P_a = np.zeros((n_states, n_states, n_actions))
         for s_initial in range(n_states):
-            for s_final in range(n_states):
-                for action in range(n_actions):
-                    if l_states[s_final] == self.next_state(l_states[s_initial], l_actions[action]):
-                        P_a[s_initial, s_final, action] = 1
-        return P_a
+            for action in range(n_actions):
+                for s_final in range(n_states):
+                    continue
+
+        # Need to determine how to generate transisiton matrix
+        return None
 
     def next_state(self, state_0, action):
         next_length = action[0] + state_0[0]
@@ -112,10 +127,11 @@ class DrawSpace(object):
         if next_theta > self.theta_max or next_theta < -self.theta_max:
             next_theta = state_0[1]
         state_1 = self.find_state((next_length, next_theta))
-        return state_1
+        id = self.get_state_index_from_floats((next_length, next_theta))
+        return (state_1, id)
 
     def get_state_index(self, state):
-        return self.states.index(state)
+        return self.get_state_index_from_floats(state)
 
     def get_action_index(self, action):
         return self.actions.index(action)
@@ -125,4 +141,23 @@ class DrawSpace(object):
         action_0_idx = int(policy[state_0_idx])
         action_0 = self.actions[action_0_idx]
         return action_0
+
+    def data_to_demonstration(self, data):
+        # Process each demonstration
+        demonstration = []
+        for i in range(len(data)):
+            episode = []
+            for j in range(len(data[i])-1):
+                event_0 = data[i][j]
+                event_1 = data[i][j+1]
+                f_state_0 = event_0[0]
+                f_action_0 = event_0[1]
+                f_state_1 = event_1[0]
+                state_0_idx = self.get_state_index_from_floats(f_state_0)
+                action_0_idx = self.get_action_index_from_floats(f_action_0)
+                state_1_idx = self.get_state_index_from_floats(f_state_1)
+                episode.append(self.Step(cur_state=state_0_idx, action=action_0_idx, next_state=state_1_idx))
+
+            demonstration.append(episode)
+        return demonstration
 

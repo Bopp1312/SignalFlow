@@ -1,23 +1,26 @@
 from mdp.interspace import InterSpace
 from maxent_irl import *
+from data.data_extraction import getting_data
+from mdp.drawspace import DrawSpace
 
 def main():
-    object = InterSpace()
-    object.get_info()
-    object.states
+    drawSpace = DrawSpace()
+    drawSpace.get_info()
+
+    data_input = getting_data()
+    letter_a = data_input['a']
+    demonstrations = drawSpace.data_to_demonstration(letter_a)
 
     # A demonstration of some trajectories
-    print("Walking in a square as a demonstration")
-    object.square()
-    traj = object.demonstrations
-    feat_map = np.eye(object.n_states)
-    mat = object.transition_mat
-
+    trajectory = demonstrations
+    feat_map = np.eye(drawSpace.n_states)
+    mat = drawSpace.transition_mat
+    exit()
     # Hyperparameters
     gamma = 0.75
     iterations = 20
     learning_rate = 0.5
-    rewards = maxent_irl(feat_map, mat, gamma, traj, learning_rate, iterations)
+    rewards = maxent_irl(feat_map, mat, gamma, trajectory, learning_rate, iterations)
     print(rewards)
 
     values, policy = value_iteration.value_iteration(mat, rewards, gamma, error=0.01, deterministic=True)
@@ -26,8 +29,6 @@ def main():
     # You can see that the policy is a array the size of the state space
     print(np.shape(policy))
 
-    # Test out the trained policy to see what happens
-    object.walk(policy,10,(0,0))
 
 if __name__ == '__main__':
     main()

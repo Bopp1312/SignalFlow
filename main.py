@@ -14,7 +14,5 @@ def main():
     print(state)
     print(id)
 
-
-
 if __name__ == '__main__':
     main()
