@@ -1,12 +1,16 @@
-from mdp.interspace import InterSpace
+from mdp.drawspace import DrawSpace
 
 def main():
-    object = InterSpace()
+    object = DrawSpace()
     object.get_info()
-    #object.random_walk(10)
     object.states
+    object.actions
+    id = object.get_state_index_from_floats((30, 1.657))
+    state = object.states[id]
+    print(object.theta_space)
+    print(state)
+    print(id)
 
-    object.square()
 
 
 if __name__ == '__main__':
