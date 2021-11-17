@@ -29,8 +29,8 @@ def getting_data():
     for i in range(len(data)):
         circ_data = []
         for ii in range(len(data[i][0])-1):
-            deltaX = data[i][0][ii+1] - data[i][0][ii]+1
-            deltaY = data[i][1][ii] - data[i][1][ii]
+            deltaX = data[i][0][ii+1] - data[i][0][ii]
+            deltaY = data[i][1][ii+1] - data[i][1][ii]
             angle = math.atan2(deltaY, deltaX) #from x,y to l, theta
             length = math.sqrt(deltaX**2+deltaY**2)
             circ_data.append([length,angle])
