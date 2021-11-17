@@ -12,8 +12,6 @@ def getting_data():
         y = []
         x = [sum(letters[i][0][0:x:1]) for x in range(0, len(letters[i][0])+1)]#cummulattive sum
         y = [sum(letters[i][1][0:x:1]) for x in range(0, len(letters[i][1])+1)]
-        x = x[1:]
-        y = y[1:]
         data.append([x,y])
     #plt.plot(data[70][0],data[70][1])
     #plt.show()
@@ -34,7 +32,8 @@ def getting_data():
             angle = math.atan2(deltaY, deltaX) #from x,y to l, theta
             length = math.sqrt(deltaX**2+deltaY**2)
             circ_data.append([length,angle])
-        circ_data.append([math.sqrt((-data[i][0][-1])**2+(-data[i][1][-1])**2),math.atan2(-data[i][1][-1],data[i][0][-1])]) #adding 0-last point
+        #circ_data.append([math.sqrt((-data[i][0][-1])**2+(-data[i][1][-1])**2),math.atan2(-data[i][1][-1],data[i][0][-1])]) #adding 0-last point
+        circ_data.append([0,0])
         remapped_data.append(circ_data)
     d2 = dict(zip(idx,remapped_data))
     circ_dict = dict(zip(keys, list(d2.values())))
