@@ -3,11 +3,14 @@ from mdp.drawspace import DrawSpace
 def main():
     object = DrawSpace()
     object.get_info()
-    object.states
-    object.actions
-    id = object.get_state_index_from_floats((30, 1.657))
+
+    print(object.actions)
+    print(object.states)
+
+    # Lets say you want to find the state index corresponding to a
+    floating_state = (30.2, 1.625)
+    id = object.get_state_index_from_floats(floating_state)
     state = object.states[id]
-    print(object.theta_space)
     print(state)
     print(id)
 
