@@ -59,4 +59,5 @@ def getting_data():
 
 if __name__=='__main__':
     data_input = getting_data()
+    print(data_input['a'])
 
