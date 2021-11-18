@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 from mdp.drawspace import DrawSpace
+import json
 
 def getting_data():
     mat = scipy.io.loadmat('mixoutALL_shifted.mat')
@@ -53,16 +54,21 @@ def getting_data():
     for i in index:
         letter_data.append(remapped_data[inf:i+1])
         inf = i+1
-    circ_dict = dict(zip(keys,letter_data))
+    circ_dict = dict(zip(keys, letter_data))
     return circ_dict #dict with letters and their new representation
     #'a', 'b', 'c', 'd', 'e', 'g', 'h', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 'u', 'v', 'w', 'y', 'z'
 
 
 if __name__=='__main__':
     data_input = getting_data()
-    print(data_input['a'])
     letter_a = data_input['a']
-    drawSpace = DrawSpace()
-    demonstrations = drawSpace.data_to_demonstration(letter_a)
+    print(type(letter_a))
+    dict_a = {"a": letter_a}
+
+    json = json.dumps(dict_a)
+    file = open("dict_a.json", "w")
+    file.write(json)
+    file.close()
+
 
 

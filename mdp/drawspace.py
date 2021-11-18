@@ -1,5 +1,6 @@
 import numpy as np
 from collections import namedtuple
+import sys
 
 
 class DrawSpace(object):
@@ -76,7 +77,7 @@ class DrawSpace(object):
     # Get closest state index
     def get_state_index_from_floats(self, state):
         (length, theta) = state
-        min_val = 100.0
+        min_val = 10**6
         for i in range(self.n_states):
             dist_l = abs(length - self.states[i][0])
             dist_t = abs(theta - self.states[i][1])
@@ -89,7 +90,7 @@ class DrawSpace(object):
     # Get closest action index
     def get_action_index_from_floats(self, action):
         (d_length, d_theta) = action
-        min_val = 100.0
+        min_val = 10**6
         for i in range(self.n_actions):
             dist_l = abs(d_length - self.actions[i][0])
             dist_t = abs(d_theta - self.actions[i][1])
@@ -111,13 +112,18 @@ class DrawSpace(object):
         l_states = self.states
 
         P_a = np.zeros((n_states, n_states, n_actions))
-        for s_initial in range(n_states):
-            for action in range(n_actions):
-                for s_final in range(n_states):
-                    continue
+        for s_initial_id in range(n_states):
+            for action_id in range(n_actions):
+                for s_final_id in range(n_states):
+                    state_0 = self.states[s_initial_id]
+                    state_1 = self.states[s_final_id]
+                    action = self.actions[action_id]
+                    (next_state, next_id) = self.next_state(state_0, action)
+                    if next_state == state_1:
+                        P_a[s_initial_id, s_final_id, action_id] = 1.0
 
         # Need to determine how to generate transisiton matrix
-        return None
+        return P_a
 
     def next_state(self, state_0, action):
         next_length = action[0] + state_0[0]

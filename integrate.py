@@ -1,21 +1,30 @@
 from mdp.interspace import InterSpace
 from maxent_irl import *
-from data.data_extraction import getting_data
 from mdp.drawspace import DrawSpace
+import json
 
 def main():
+
+    with open("data/dict_a.json") as f:
+        data = f.read()
+
+    js = json.loads(data)
+    letter_a = js['a']
+
     drawSpace = DrawSpace()
     drawSpace.get_info()
 
-    data_input = getting_data()
-    letter_a = data_input['a']
+    # Generate transition probabilities
+    mat = drawSpace.transition_mat
+    print(mat.shape)
+
+    # Generate demonstrations based on data
     demonstrations = drawSpace.data_to_demonstration(letter_a)
 
     # A demonstration of some trajectories
     trajectory = demonstrations
     feat_map = np.eye(drawSpace.n_states)
-    mat = drawSpace.transition_mat
-    exit()
+
     # Hyperparameters
     gamma = 0.75
     iterations = 20
