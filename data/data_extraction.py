@@ -10,15 +10,12 @@ def plotting_data(idx):
     global mat
     letters = mat.get('mixout')[0]
     data = []
-    for i in range(len(letters)):
-        x = []
-        y = []
-        x = [sum(letters[i][0][0:x:1]) for x in range(0, len(letters[i][0])+1)]
-        y = [sum(letters[i][1][0:x:1]) for x in range(0, len(letters[i][1])+1)]
-        #x = x[1:]
-        #y = y[1:]
-        data.append([x,y])
-    plt.plot(data[idx][0],data[idx][1])
+    x = [sum(letters[idx][0][0:x:1]) for x in range(0, len(letters[idx][0])+1)]
+    y = [sum(letters[idx][1][0:x:1]) for x in range(0, len(letters[idx][1])+1)]
+    #x = x[1:]
+    #y = y[1:]
+    data.extend([x,y])
+    plt.plot(data[0],data[1])
     plt.show()
     return 
 
@@ -80,7 +77,7 @@ if __name__=='__main__':
     letter_a = data_input['a']
     print(type(letter_a))
     dict_a = {"a": letter_a}
-    a = plotting_data(99)
+    a = plotting_data(0)
     json = json.dumps(dict_a)
     file = open("dict_a.json", "w")
     file.write(json)
