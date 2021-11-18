@@ -2,7 +2,10 @@ import scipy.io
 import numpy as np
 import matplotlib.pyplot as plt
 import math
+import json
+
 mat = scipy.io.loadmat('mixoutALL_shifted.mat')
+
 def plotting_data(idx):
     global mat
     letters = mat.get('mixout')[0]

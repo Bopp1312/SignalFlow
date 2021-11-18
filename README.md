@@ -13,7 +13,7 @@ The Inverse Reenforcment Learning library is dependent on several conditions
 In order to meet all the conditions its recommended you install anaconda for python3
 https://docs.anaconda.com/anaconda/install/index.html
 
-Then Import the environment following the instructions: 
+Then import the environment following the instructions: 
 https://docs.anaconda.com/anaconda/navigator/tutorials/manage-environments/#importing-an-environment
 
 
@@ -21,6 +21,6 @@ https://docs.anaconda.com/anaconda/navigator/tutorials/manage-environments/#impo
 Start by running integrate.py 
 
 ## Notes on structure
-The data for demonstrations is stored within the /data directory. 
+The data for demonstrations is stored within the data/ directory. 
 There also lies some of the data processing functions to condition the data 
 prior to ingestion by one of the MDP classes.
