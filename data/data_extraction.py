@@ -53,6 +53,7 @@ def getting_indexes(idx):
     return index_2h
 
 def getting_data():
+    mat = scipy.io.loadmat('mixoutALL_shifted.mat')
     data = getting_rawdata()
     index_dig = list(mat.get('consts')[0][0][4][0])
     index_1 = getting_indexes(index_dig[0:1512])
@@ -76,7 +77,7 @@ if __name__=='__main__':
     letter_a = data_input['a']
     print(type(letter_a))
     dict_a = {"a": letter_a}
-
+    a = plotting_data(0)
     json = json.dumps(dict_a)
     file = open("dict_a.json", "w")
     file.write(json)
