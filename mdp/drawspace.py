@@ -137,10 +137,9 @@ class DrawSpace(object):
                     (next_state, next_id) = self.next_state(state_0, action)
                     if next_state == state_1:
                         P_a[s_initial_id, s_final_id, action_id] = 1.0
-
-        # Need to determine how to generate transisiton matrix
         return P_a
 
+    # Use deterministic properties of the system to calculate the next state
     def next_state(self, state_0, action):
         next_length = action[0] + state_0[0]
         next_theta = action[1] + state_0[1]
@@ -158,12 +157,14 @@ class DrawSpace(object):
     def get_action_index(self, action):
         return self.actions.index(action)
 
+    # Get action based on a Policy comprised of action indexes
     def get_action(self, policy, state_0):
         state_0_idx = self.get_state_index(state_0)
         action_0_idx = int(policy[state_0_idx])
         action_0 = self.actions[action_0_idx]
         return action_0
 
+    # Process demonstrations by matching each trajectory to one inside the state and action space
     def data_to_demonstration(self, data):
         # Process each demonstration
         demonstration = []
