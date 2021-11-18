@@ -3,7 +3,7 @@ from collections import namedtuple
 import sys
 
 
-class DrawSpace(object):
+class PixelSpace(object):
 
     def __init__(self,
                  theta_bins=15,
@@ -55,14 +55,13 @@ class DrawSpace(object):
 
         self.transition_mat = self.generate_transition_prob()
 
-        # Define named tuple for compatibility with IRL algorithm
+        # Define the named tuple STEP for compatibility with IRL algorithm
         self.Step = namedtuple('Step', 'cur_state action next_state')
 
     def get_info(self):
         print("State space size: " + str(self.n_states))
         print(self.states)
 
-    # Generate list of all states in the state space
     def get_states(self):
         states = []
         for i in range(self.theta_bins):
@@ -72,7 +71,6 @@ class DrawSpace(object):
                 states.append((length, theta))
         return states
 
-    # Generate a list of actions for all actions in the action space
     def get_actions(self):
         actions = []
         for i in range(self.delta_theta_bins):
@@ -114,13 +112,11 @@ class DrawSpace(object):
                 idx = i
         return idx
 
-    # Shorter call to the get_state_from_float function
     def find_state(self, state):
         index = self.get_state_index_from_floats(state)
 
         return self.states[index]
 
-    # Based on the state and action spaces generate a deterministic transition probability matrix
     def generate_transition_prob(self):
         n_states = self.n_states
         n_actions = self.n_actions
