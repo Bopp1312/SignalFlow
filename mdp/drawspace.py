@@ -7,12 +7,12 @@ class DrawSpace(object):
 
     def __init__(self,
                  theta_bins=15,
-                 length_bins=9,
+                 length_bins=31,
                  length_max=500,
                  theta_max=3 * np.pi,
                  delta_theta_bins=11,
                  delta_length_bins=3,
-                 delta_length_max=5
+                 delta_length_max=10
                  ):
         # Bins represents the number of discrete bins that the value will be represented
         # as in the respective space it relates to
@@ -177,6 +177,8 @@ class DrawSpace(object):
                 state_1, state_1_idx = self.next_state(f_state_0, f_action_0)
                 state_0_idx = self.get_state_index_from_floats(f_state_0)
                 action_0_idx = self.get_action_index_from_floats(f_action_0)
+                # For the next loop
+                f_state_0 = state_1
                 episode.append(self.Step(cur_state=state_0_idx, action=action_0_idx, next_state=state_1_idx))
 
             demonstration.append(episode)
