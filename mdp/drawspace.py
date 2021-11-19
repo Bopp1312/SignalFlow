@@ -53,8 +53,6 @@ class DrawSpace(object):
         self.n_actions = len(self.actions)
         self.current_state = (0, 0)
 
-        self.transition_mat = self.generate_transition_prob()
-
         # Define named tuple for compatibility with IRL algorithm
         self.Step = namedtuple('Step', 'cur_state action next_state')
 

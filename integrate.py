@@ -1,4 +1,3 @@
-from mdp.interspace import InterSpace
 from maxent_irl import *
 from mdp.drawspace import DrawSpace
 import json
@@ -6,7 +5,7 @@ import json
 def main():
 
     # Grab the json file that contains all the demonstrations for letter_a
-    # To save data to josn file it must be in a dictionary object
+    # To save data to json file it must be in a dictionary object
     with open("data/dict_a.json") as f:
         data = f.read()
     js = json.loads(data)
@@ -18,7 +17,7 @@ def main():
     drawspace.get_info()
 
     # Generate transition probabilities
-    mat = drawspace.transition_mat
+    mat = drawspace.generate_transition_prob()
     print(mat.shape)
 
     # Generate demonstrations based on data
@@ -30,7 +29,7 @@ def main():
 
     # Hyperparameters
     gamma = 0.75
-    iterations = 20
+    iterations = 1
     learning_rate = 0.5
 
     # Calculate reward function
@@ -46,10 +45,10 @@ def main():
     # You can see that the policy is a array the size of the state space
     print(np.shape(policy))
 
-    dict_policy = {"policy": policy}
-    json = json.dumps(dict_policy)
-    file = open("dict_policy.json", "w")
-    file.write(json)
+    dict_policy = {"policy": list(policy)}
+    jsob = json.dumps(dict_policy)
+    file = open("data/dict_policy.json", "w")
+    file.write(jsob)
     file.close()
 
 
