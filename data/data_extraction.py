@@ -30,10 +30,10 @@ def convert():
             deltaX = data[i][0][ii]
             deltaY = data[i][1][ii]
             phi = math.atan2(deltaY, deltaX)
-            delta = phi - phi_last
+            delta_theta = phi - phi_last
             phi_last = phi
             length = math.sqrt(deltaX**2+deltaY**2)
-            circ_data.append([length,angle])
+            circ_data.append([length, delta_theta])
         remapped_data.append(circ_data)
     return remapped_data
     
