@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 mat = scipy.io.loadmat('mixoutALL_shifted.mat')
+
 def plotting_data(idx):
     global mat
     letters = mat.get('mixout')[0]
@@ -16,7 +17,7 @@ def plotting_data(idx):
     plt.show()
     return 
 
-def getting_rawdata():
+def convert():
     global mat
     data = mat.get('mixout')[0]
     remapped_data = []
@@ -49,9 +50,28 @@ def getting_indexes(idx):
     index_2h.append(index_1h[-1])
     return index_2h
 
+def getting_rawdata():
+    global mat
+    data = list(mat.get('mixout')[0])
+    index_dig = list(mat.get('consts')[0][0][4][0])
+    index_1 = getting_indexes(index_dig[0:1512])
+    index_2 = [x+(index_1[-1]+1) for x in getting_indexes(index_dig[index_1[-1]+1:])]
+    consts = list(mat.get('consts'))
+    temp_keys = consts[0][0][3][0]
+    keys = []
+    for i in list(temp_keys):
+        keys.append(i[0])
+    letter_data = []
+    for i in range(len(index_1)-1):
+        temp = data[index_1[i]:index_1[i+1]]
+        temp.extend(data[index_2[i]:index_2[i+1]])
+        letter_data.append(temp)
+    circ_dict = dict(zip(keys,letter_data))
+    return circ_dict
+
 def getting_data():
     global mat
-    data = getting_rawdata()
+    data = convert()
     index_dig = list(mat.get('consts')[0][0][4][0])
     index_1 = getting_indexes(index_dig[0:1512])
     index_2 = [x+(index_1[-1]+1) for x in getting_indexes(index_dig[index_1[-1]+1:])]
@@ -72,6 +92,8 @@ def getting_data():
 if __name__=='__main__':
     data_input = getting_data()
     letter_a = data_input['a']
+    a = getting_rawdata()
+    print(a['a'])
     print(type(letter_a))
     dict_a = {"a": letter_a}
     a = plotting_data(0)
