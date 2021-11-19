@@ -46,6 +46,12 @@ def main():
     # You can see that the policy is a array the size of the state space
     print(np.shape(policy))
 
+    dict_policy = {"policy": policy}
+    json = json.dumps(dict_policy)
+    file = open("dict_policy.json", "w")
+    file.write(json)
+    file.close()
+
 
 if __name__ == '__main__':
     main()
