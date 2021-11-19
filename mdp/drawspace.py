@@ -7,7 +7,7 @@ class DrawSpace(object):
 
     def __init__(self,
                  theta_bins=15,
-                 length_bins=31,
+                 length_bins=15,
                  length_max=500,
                  theta_max=3 * np.pi,
                  delta_theta_bins=11,

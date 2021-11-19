@@ -29,7 +29,7 @@ def main():
 
     # Hyperparameters
     gamma = 0.75
-    iterations = 20
+    iterations = 1
     learning_rate = 0.5
 
     # Calculate reward function
@@ -45,9 +45,12 @@ def main():
     # You can see that the policy is a array the size of the state space
     print(np.shape(policy))
 
-    dict_policy = {"policy": list(policy)}
-    jsob = json.dumps(dict_policy)
-    file = open("data/dict_policy.json", "w")
+    dict_package = {"policy": list(policy),
+                    "states": drawspace.actions,
+                    "actions": drawspace.states}
+
+    jsob = json.dumps(dict_package)
+    file = open("data/dict_package.json", "w")
     file.write(jsob)
     file.close()
 
