@@ -23,6 +23,7 @@ def main():
 
     # Generate demonstrations based on data
     trajectory = drawspace.data_to_demonstration(letter_a)
+    print(trajectory)
 
     # Create basic feature map
     feat_map = np.eye(drawspace.n_states)

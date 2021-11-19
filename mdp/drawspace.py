@@ -170,15 +170,15 @@ class DrawSpace(object):
         demonstration = []
         for i in range(len(data)):
             episode = []
-            for j in range(len(data[i])-1):
-                event_0 = data[i][j]
-                event_1 = data[i][j+1]
-                f_state_0 = event_0[0]
-                f_action_0 = event_0[1]
-                f_state_1 = event_1[0]
+            f_state_0 = (0.0, 0.0)
+            for j in range(len(data[i])):
+                delta_l = data[i][j][0]
+                delta_theta = data[i][j][1]
+                f_action_0 = (delta_l, delta_theta)
+
+                state_1, state_1_idx = self.next_state(f_state_0, f_action_0)
                 state_0_idx = self.get_state_index_from_floats(f_state_0)
                 action_0_idx = self.get_action_index_from_floats(f_action_0)
-                state_1_idx = self.get_state_index_from_floats(f_state_1)
                 episode.append(self.Step(cur_state=state_0_idx, action=action_0_idx, next_state=state_1_idx))
 
             demonstration.append(episode)

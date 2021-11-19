@@ -12,6 +12,8 @@ def plotting_data(idx):
     data = []
     x = [sum(letters[idx][0][0:x:1]) for x in range(0, len(letters[idx][0])+1)]
     y = [sum(letters[idx][1][0:x:1]) for x in range(0, len(letters[idx][1])+1)]
+    #x = x[1:]
+    #y = y[1:]
     data.extend([x,y])
     plt.plot(data[0],data[1])
     plt.show()
@@ -23,10 +25,13 @@ def convert():
     remapped_data = []
     for i in range(len(data)):
         circ_data = []
+        phi_last = 0.0
         for ii in range(len(data[i][0])):
             deltaX = data[i][0][ii]
             deltaY = data[i][1][ii]
-            angle = math.atan2(deltaY, deltaX)
+            phi = math.atan2(deltaY, deltaX)
+            delta = phi - phi_last
+            phi_last = phi
             length = math.sqrt(deltaX**2+deltaY**2)
             circ_data.append([length,angle])
         remapped_data.append(circ_data)
@@ -96,7 +101,7 @@ def getting_data():
     return circ_dict1, circ_dict2
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     data_input, data_input2 = getting_data()
     letter_a = data_input['a']
 
@@ -104,7 +109,7 @@ if __name__=='__main__':
 
     #print(type(letter_a))
     dict_a = {"a": letter_a}
-    plotting_data(data_input['a'])
+    plotting_data(0)
     json = json.dumps(dict_a)
     file = open("dict_a.json", "w")
     file.write(json)
