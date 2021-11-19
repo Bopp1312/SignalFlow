@@ -29,7 +29,7 @@ def main():
 
     # Hyperparameters
     gamma = 0.75
-    iterations = 1
+    iterations = 20
     learning_rate = 0.5
 
     # Calculate reward function
