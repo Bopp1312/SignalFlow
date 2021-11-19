@@ -12,14 +12,12 @@ def plotting_data(idx):
     data = []
     x = [sum(letters[idx][0][0:x:1]) for x in range(0, len(letters[idx][0])+1)]
     y = [sum(letters[idx][1][0:x:1]) for x in range(0, len(letters[idx][1])+1)]
-    #x = x[1:]
-    #y = y[1:]
     data.extend([x,y])
     plt.plot(data[0],data[1])
     plt.show()
     return 
 
-def getting_rawdata():
+def convert():
     global mat
     data = mat.get('mixout')[0]
     remapped_data = []
@@ -52,9 +50,9 @@ def getting_indexes(idx):
     index_2h.append(index_1h[-1])
     return index_2h
 
-def getting_data():
+def getting_rawdata():
     global mat
-    data = getting_rawdata()
+    data = list(mat.get('mixout')[0])
     index_dig = list(mat.get('consts')[0][0][4][0])
     index_1 = getting_indexes(index_dig[0:1512])
     index_2 = [x+(index_1[-1]+1) for x in getting_indexes(index_dig[index_1[-1]+1:])]
@@ -63,21 +61,50 @@ def getting_data():
     keys = []
     for i in list(temp_keys):
         keys.append(i[0])
-    letter_data = []
+    letter_data_train = []
+    letter_data_test = []
     for i in range(len(index_1)-1):
-        temp = data[index_1[i]:index_1[i+1]]
-        temp.extend(data[index_2[i]:index_2[i+1]])
-        letter_data.append(temp)
-    circ_dict = dict(zip(keys,letter_data))
-    return circ_dict
+        temp1 = data[index_1[i]:index_1[i+1]]
+        temp2 = data[index_2[i]:index_2[i+1]]
+        letter_data_train.append(temp1)
+        letter_data_test.append(temp2)
+    circ_dict1 = dict(zip(keys,letter_data_train))
+    circ_dict2 = dict(zip(keys,letter_data_test))
+    return circ_dict1, circ_dict2
+
+
+def getting_data():
+    global mat
+    data = convert()
+    index_dig = list(mat.get('consts')[0][0][4][0])
+    index_1 = getting_indexes(index_dig[0:1512])
+    index_2 = [x+(index_1[-1]+1) for x in getting_indexes(index_dig[index_1[-1]+1:])]
+    consts = list(mat.get('consts'))
+    temp_keys = consts[0][0][3][0]
+    keys = []
+    for i in list(temp_keys):
+        keys.append(i[0])
+    letter_data_train = []
+    letter_data_test = []
+    for i in range(len(index_1)-1):
+        temp1 = data[index_1[i]:index_1[i+1]]
+        temp2 = data[index_2[i]:index_2[i+1]]
+        letter_data_train.append(temp1)
+        letter_data_test.append(temp2)
+    circ_dict1 = dict(zip(keys,letter_data_train))
+    circ_dict2 = dict(zip(keys,letter_data_test))
+    return circ_dict1, circ_dict2
 
 
 if __name__=='__main__':
-    data_input = getting_data()
+    data_input, data_input2 = getting_data()
     letter_a = data_input['a']
-    print(type(letter_a))
+
+    print(len(data_input['a']),len(data_input2['a']))
+
+    #print(type(letter_a))
     dict_a = {"a": letter_a}
-    a = plotting_data(0)
+    plotting_data(data_input['a'])
     json = json.dumps(dict_a)
     file = open("dict_a.json", "w")
     file.write(json)
