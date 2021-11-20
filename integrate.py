@@ -29,7 +29,7 @@ def main():
 
     # Hyperparameters
     gamma = 0.75
-    iterations = 3
+    iterations = 10
     learning_rate = 0.5
 
     # Calculate reward function
@@ -53,7 +53,6 @@ def main():
     file = open("data/dict_package.json", "w")
     file.write(jsob)
     file.close()
-
 
 if __name__ == '__main__':
     main()

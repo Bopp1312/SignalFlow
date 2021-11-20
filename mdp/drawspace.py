@@ -6,12 +6,12 @@ import sys
 class DrawSpace(object):
 
     def __init__(self,
-                 theta_bins=15,
-                 length_bins=15,
-                 length_max=500,
+                 theta_bins=7,
+                 length_bins=25,
+                 length_max=50,
                  theta_max=3 * np.pi,
-                 delta_theta_bins=11,
-                 delta_length_bins=3,
+                 delta_theta_bins=3,
+                 delta_length_bins=2,
                  delta_length_max=10
                  ):
         # Bins represents the number of discrete bins that the value will be represented
@@ -44,7 +44,7 @@ class DrawSpace(object):
         self.length_space = np.linspace(0, self.length_max, self.length_bins)
 
         self.delta_theta_space = np.linspace(-1 * np.pi, np.pi, self.delta_theta_bins)
-        self.delta_length_space = np.linspace(0, self.delta_length_max, self.delta_length_bins)
+        self.delta_length_space = np.linspace(1, self.delta_length_max, self.delta_length_bins)
 
         self.n_states = self.theta_bins * self.length_bins
         self.states = self.get_states()
@@ -58,6 +58,7 @@ class DrawSpace(object):
 
     def get_info(self):
         print("State space size: " + str(self.n_states))
+        print("Action space size: " + str(self.n_actions))
         print(self.states)
 
     # Generate list of all states in the state space
