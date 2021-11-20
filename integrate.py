@@ -29,7 +29,7 @@ def main():
 
     # Hyperparameters
     gamma = 0.75
-    iterations = 20
+    iterations = 3
     learning_rate = 0.5
 
     # Calculate reward function
@@ -46,8 +46,8 @@ def main():
     print(np.shape(policy))
 
     dict_package = {"policy": list(policy),
-                    "states": drawspace.actions,
-                    "actions": drawspace.states}
+                    "states": drawspace.states,
+                    "actions": drawspace.actions}
 
     jsob = json.dumps(dict_package)
     file = open("data/dict_package.json", "w")
