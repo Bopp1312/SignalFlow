@@ -6,11 +6,11 @@ import sys
 class DrawSpace(object):
 
     def __init__(self,
-                 theta_bins=7,
+                 theta_bins=15,
                  length_bins=25,
                  length_max=50,
                  theta_max=3 * np.pi,
-                 delta_theta_bins=3,
+                 delta_theta_bins=5,
                  delta_length_bins=2,
                  delta_length_max=10
                  ):
@@ -54,7 +54,7 @@ class DrawSpace(object):
         self.current_state = (0, 0)
 
         # Define named tuple for compatibility with IRL algorithm
-        self.Step = namedtuple('Step', 'cur_state action next_state')
+        self.Step = namedtuple('Step', 'cur_state action next_state reward done')
 
     def get_info(self):
         print("State space size: " + str(self.n_states))
@@ -180,7 +180,14 @@ class DrawSpace(object):
                 action_0_idx = self.get_action_index_from_floats(f_action_0)
                 # For the next loop
                 f_state_0 = state_1
-                episode.append(self.Step(cur_state=state_0_idx, action=action_0_idx, next_state=state_1_idx))
+                if j == len(data[i]):
+                    points = 0.5
+                    is_done = True
+                else:
+                    points = 0.5
+                    is_done = False
+
+                episode.append(self.Step(cur_state=state_0_idx, action=action_0_idx, next_state=state_1_idx, reward=points, done=is_done))
 
             demonstration.append(episode)
         return demonstration
