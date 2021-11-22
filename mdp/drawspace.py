@@ -8,11 +8,11 @@ class DrawSpace(object):
     def __init__(self,
                  theta_bins=15,
                  length_bins=25,
-                 length_max=50,
+                 length_max=400,
                  theta_max=3 * np.pi,
                  delta_theta_bins=5,
                  delta_length_bins=2,
-                 delta_length_max=10
+                 delta_length_max=1
                  ):
         # Bins represents the number of discrete bins that the value will be represented
         # as in the respective space it relates to
@@ -184,7 +184,7 @@ class DrawSpace(object):
                     points = 0.5
                     is_done = True
                 else:
-                    points = 0.5
+                    points = 0.1
                     is_done = False
 
                 episode.append(self.Step(cur_state=state_0_idx, action=action_0_idx, next_state=state_1_idx, reward=points, done=is_done))

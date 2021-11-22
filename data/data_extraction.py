@@ -14,8 +14,8 @@ def plotting_data(idx):
     y = [sum(letters[idx][1][0:x:1]) for x in range(0, len(letters[idx][1])+1)]
     #x = x[1:]
     #y = y[1:]
-    data.extend([x,y])
-    plt.plot(data[0],data[1])
+    data.extend([x, y])
+    plt.plot(data[0], data[1])
     plt.show()
     return 
 
@@ -73,8 +73,8 @@ def getting_rawdata():
         temp2 = data[index_2[i]:index_2[i+1]]
         letter_data_train.append(temp1)
         letter_data_test.append(temp2)
-    circ_dict1 = dict(zip(keys,letter_data_train))
-    circ_dict2 = dict(zip(keys,letter_data_test))
+    circ_dict1 = dict(zip(keys, letter_data_train))
+    circ_dict2 = dict(zip(keys, letter_data_test))
     return circ_dict1, circ_dict2
 
 
@@ -96,8 +96,8 @@ def getting_data():
         temp2 = data[index_2[i]:index_2[i+1]]
         letter_data_train.append(temp1)
         letter_data_test.append(temp2)
-    circ_dict1 = dict(zip(keys,letter_data_train))
-    circ_dict2 = dict(zip(keys,letter_data_test))
+    circ_dict1 = dict(zip(keys, letter_data_train))
+    circ_dict2 = dict(zip(keys, letter_data_test))
     return circ_dict1, circ_dict2
 
 
@@ -105,7 +105,7 @@ if __name__ == '__main__':
     data_input, data_input2 = getting_data()
     letter_a = data_input['a']
 
-    print(len(data_input['a']),len(data_input2['a']))
+    print(len(data_input['a']), len(data_input2['a']))
 
     #print(type(letter_a))
     dict_a = {"a": letter_a}

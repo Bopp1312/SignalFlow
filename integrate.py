@@ -28,8 +28,8 @@ def main():
     feat_map = np.eye(drawspace.n_states)
 
     # Hyperparameters
-    gamma = 0.2
-    iterations = 50
+    gamma = 0.5
+    iterations = 15
     learning_rate = 0.5
 
     # Calculate reward function
