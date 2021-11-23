@@ -31,6 +31,7 @@ def convert():
             deltaY = data[i][1][ii]
             phi = math.atan2(deltaY, deltaX)
             delta_theta = phi - phi_last
+            delta_theta = np.arctan2(np.sin(delta_theta), np.cos(delta_theta))
             phi_last = phi
             length = math.sqrt(deltaX**2+deltaY**2)
             circ_data.append([length, delta_theta])
@@ -104,16 +105,13 @@ def getting_data():
 if __name__ == '__main__':
     data_input, data_input2 = getting_data()
     letter_a = data_input['a']
-
     print(len(data_input['a']), len(data_input2['a']))
-
-    #print(type(letter_a))
     dict_a = {"a": letter_a}
     plotting_data(0)
     json = json.dumps(dict_a)
-    file = open("dict_a.json", "w")
-    file.write(json)
-    file.close()
+    file_new = open("dict_a.json", "w")
+    file_new.write(json)
+    file_new.close()
 
 
 

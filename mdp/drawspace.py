@@ -1,5 +1,7 @@
 import numpy as np
 from collections import namedtuple
+import matplotlib.pyplot as plt
+from scipy import stats
 import sys
 
 
@@ -191,4 +193,18 @@ class DrawSpace(object):
 
             demonstration.append(episode)
         return demonstration
+
+    def plot_data(self, data):
+        # Process each demonstration
+        delta_l = []
+        delta_t = []
+        for i in range(len(data)):
+            for j in range(len(data[i])):
+                delta_l.append(data[i][j][0])
+                delta_t.append(data[i][j][1])
+        print("Statistics of delta_length in data set")
+        print(stats.describe(delta_l))
+        print("Statistics of delta_theta in data set:")
+        print(stats.describe(delta_t))
+
 
